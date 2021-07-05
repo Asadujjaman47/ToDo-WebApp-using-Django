@@ -1,14 +1,14 @@
 # ToDo-WebApp-using-Django
 ![](media/images/output.png)
 
-#1.install crispy-forms
+#1.install crispy-forms<br>
 $pip install --upgrade django-crispy-forms
 
-#2.Create project and app
-$django-admin startproject todo-site .
-$python manage.py runserver
-$ctrl-c
-$python manage.py startapp todo
+#2.Create project and app<br>
+$django-admin startproject todo-site .<br>
+$python manage.py runserver<br>
+$ctrl-c<br>
+$python manage.py startapp todo<br>
 
 
 
@@ -34,9 +34,9 @@ from todo import views<br>
 
 urlpatterns = [<br>
     path('admin/', admin.site.urls),<br>
-    #####################home_page###########################################
+    #####################home_page###########################################<br>
     path('', views.index, name="todo"),<br>
-    ####################give id no. item_id name or item_id=i.id ############
+    ####################give id no. item_id name or item_id=i.id ############<br>
     path('del/<item_id>', views.remove, name="del"),<br>
 ]
 
@@ -47,13 +47,14 @@ from django.db import models<br>
 from django.utils import timezone<br>
 
 # Create your models here.
-class Todo(models.Model):
-    title = models.CharField(max_length= 100)
-    details = models.TextField()
-    date = models.DateTimeField(default=timezone.now)
+class Todo(models.Model):<br>
+    title = models.CharField(max_length= 100)<br>
+    details = models.TextField()<br>
+    date = models.DateTimeField(default=timezone.now)<br>
 
     def __str__(self):
         return self.title
+
 
 6. todo/views.py 
 
@@ -65,14 +66,14 @@ from .forms import TodoForm<br>
 from .models import Todo<br>
 
 # Create your views here.
-def index(request):
-    item_list = Todo.objects.order_by("-date")
-    if request.method == "POST":
-        form = TodoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('todo')
-    form = TodoForm()
+def index(request):<br>
+    item_list = Todo.objects.order_by("-date")<br>
+    if request.method == "POST":<br>
+        form = TodoForm(request.POST)<br>
+        if form.is_valid():<br>
+            form.save()<br>
+            return redirect('todo')<br>
+    form = TodoForm()<br>
 
     page = {
                 "forms" : form,
@@ -84,11 +85,12 @@ def index(request):
 
 ### function to remove item, it receive todo item id from url ##
 
-def remove(request, item_id):
-    item = Todo.objects.get(id=item_id)
-    item.delete()
-    messages.info(request, "item removed !!!")
-    return redirect('todo')
+def remove(request, item_id):<br>
+    item = Todo.objects.get(id=item_id)<br>
+    item.delete()<br>
+    messages.info(request, "item removed !!!")<br>
+    return redirect('todo')<br>
+
 
 
 #7.todo/forms.py
@@ -98,10 +100,10 @@ from django.forms import fields<br>
 from .models import Todo<br>
 
 
-class TodoForm(forms.ModelForm):
-    class Meta:
-        model = Todo
-        fields = "__all__"
+class TodoForm(forms.ModelForm):<br>
+    class Meta:<br>
+        model = Todo<br>
+        fields = "__all__"<br>
 
 
 #8.Register models to todo/admin.py
@@ -111,6 +113,7 @@ from django.contrib import admin<br>
 from .models import Todo<br>
 # Register your models here.
 admin.site.register(Todo)
+
 
 
 #9.Navigate to templates/todo/index.html and edit it
@@ -214,7 +217,7 @@ admin.site.register(Todo)
 
 #10.Make migrations and migrate it 
 
-$python manage.py makemigrations
+$python manage.py makemigrations<br>
 $python manage.py migrate
 
 
